@@ -1,0 +1,31 @@
+Student_name,Gender,Course,Teacher,ECTS,Classroom,Grade,image
+Annika Sørensen,Female,Unity,Lars,10,102,-3,https://www.pexels.com/photo/women-s-white-and-black-button-up-collared-shirt-774909/
+Annika Sørensen,Female,Adv. Programming,Hans,25,103,10,https://www.pexels.com/photo/women-s-white-and-black-button-up-collared-shirt-774909/
+Annika Sørensen,Female,Python,Jens,5,102,,https://www.pexels.com/photo/women-s-white-and-black-button-up-collared-shirt-774909/
+Anina Jakobsen,Female,Adv. Programming,Hans,25,103,10,https://www.pexels.com/photo/man-wearing-black-zip-up-jacket-near-beach-smiling-at-the-photo-736716/
+Anina Jakobsen,Female,Unity,Lars,10,102,4,https://www.pexels.com/photo/man-wearing-black-zip-up-jacket-near-beach-smiling-at-the-photo-736716/
+Anina Jakobsen,Female,JavaScript,Klausbjerke,30,102,0,https://www.pexels.com/photo/man-wearing-black-zip-up-jacket-near-beach-smiling-at-the-photo-736716/
+Josefine Sørensen,Female,Unity,Lars,10,102,0,https://www.pexels.com/photo/adult-beard-boy-casual-220453/
+Josefine Sørensen,Female,Python,Jens,5,102,-3,https://www.pexels.com/photo/adult-beard-boy-casual-220453/
+Josefine Sørensen,Female,JavaScript,Klausbjerke,30,102,12,https://www.pexels.com/photo/adult-beard-boy-casual-220453/
+Linda Sørensen,Female,Unity,Lars,10,102,7,https://www.pexels.com/photo/photography-of-a-guy-wearing-green-shirt-1222271/
+Linda Sørensen,Female,Adv. Programming,Hans,25,103,0,https://www.pexels.com/photo/photography-of-a-guy-wearing-green-shirt-1222271/
+Linda Sørensen,Female,Security,Lars,5,103,7,https://www.pexels.com/photo/photography-of-a-guy-wearing-green-shirt-1222271/
+Shafa Jensen,Female,JavaScript,Klausbjerke,30,102,2,https://www.pexels.com/photo/man-young-happy-smiling-91227/
+Shafa Jensen,Female,Adv. Programming,Hans,25,103,2,https://www.pexels.com/photo/man-young-happy-smiling-91227/
+Shafa Jensen,Female,Python,Jens,5,102,4,https://www.pexels.com/photo/man-young-happy-smiling-91227/
+Martin Hansen,Male,Python,Jens,5,102,0,https://www.pexels.com/photo/woman-sitting-and-smiling-1858175/
+Martin Hansen,Male,Unity,Lars,10,102,4,https://www.pexels.com/photo/woman-sitting-and-smiling-1858175/
+Martin Hansen,Male,Adv. Programming,Hans,25,103,0,https://www.pexels.com/photo/woman-sitting-and-smiling-1858175/
+Peter Hansen,Male,Python,Jens,5,102,-3,https://www.pexels.com/photo/photography-of-person-walking-on-road-1236701/
+Peter Hansen,Male,JavaScript,Klausbjerke,30,102,2,https://www.pexels.com/photo/photography-of-person-walking-on-road-1236701/
+Peter Hansen,Male,Unity,Lars,10,102,12,https://www.pexels.com/photo/photography-of-person-walking-on-road-1236701/
+Mathias Sørensen,Male,Python,Jens,5,102,12,https://www.pexels.com/photo/woman-wearing-black-eyeglasses-1239291/
+Mathias Sørensen,Male,Unity,Lars,10,102,7,https://www.pexels.com/photo/woman-wearing-black-eyeglasses-1239291/
+Mathias Sørensen,Male,Adv. Programming,Hans,25,103,,https://www.pexels.com/photo/woman-wearing-black-eyeglasses-1239291/
+Kasper Sørensen,Male,Security,Lars,5,103,12,https://www.pexels.com/photo/afterglow-backlit-beautiful-crescent-moon-556666/
+Kasper Sørensen,Male,Python,Jens,5,102,0,https://www.pexels.com/photo/afterglow-backlit-beautiful-crescent-moon-556666/
+Kasper Sørensen,Male,Unity,Lars,10,102,,https://www.pexels.com/photo/afterglow-backlit-beautiful-crescent-moon-556666/
+Jonas Jensen,Male,Unity,Lars,10,102,4,https://www.pexels.com/photo/landscape-nature-africa-boy-103123/
+Jonas Jensen,Male,Python,Jens,5,102,12,https://www.pexels.com/photo/landscape-nature-africa-boy-103123/
+Jonas Jensen,Male,Adv. Programming,Hans,25,103,7,https://www.pexels.com/photo/landscape-nature-africa-boy-103123/
