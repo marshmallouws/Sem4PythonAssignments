@@ -5,73 +5,64 @@ from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from collections import Counter
 
 
-class Download_Books:
+class DownloadBooks:
     # 1
     def __init__(self, url_list):
         self.url_list = url_list
-        self.filenames = []
-        self.idx = 0
 
     # 2
     def download(self, url, filename):
         """
         Download url to filename. Raises NotFoundException when url returns 404
         """
-        try:
-            with req.urlopen(url) as response:
+        with req.urlopen(url) as response:
+            if response.getcode == 404:
+                raise NotFoundException
+            else:
                 data = response.readlines()
-        except:
-            raise NotFoundException
-        else:
-            filename = os.path.basename(url)
-            with open(filename, "wb") as f:
-                f.writelines(data)
+                with open(filename, "wb") as f:
+                    f.writelines(data)
 
     # 3
-    def multi_download(self, urls):
+    def multi_download(self):
         """
         Uses threads to download multiple urls as text and stores filenames as a property
         """
         workers = 5
         with ThreadPoolExecutor(workers) as ex:
-            for u in urls:
-                filename = os.path.basename(u)
+            for filename, url in self.url_list.items():
                 try:
-                    ex.submit(self.download, u, filename)
+                    ex.submit(self.download, url, filename)
+                    print("I am downloading: ", filename)
                 except NotFoundException:
-                    pass
-                else:
-                    self.filenames.append(filename)
+                    print("Oh no! Cannot download", filename)
 
     # 4
     def __iter__(self):
         """
         Returns iterator
         """
-        return self
+        return iter(self.url_list)
 
-    # 5
+    # 5 -- __iter__ method returns an iterable object each time it is called
+    """
     def __next__(self):
-        """
-        Returns next filename and stops when there are no more)
-        """
-        if self.idx < len(self.filenames):
-            idx = self.idx
-            self.idx += 1
-            return self.filenames[idx]
-        else:
-            self.idx = 0
-            raise StopIteration
+        
+        Returns next filename and stops when there are no more
+        https://stackoverflow.com/questions/38700734/how-to-implement-next-for-a-dictionary-object-to-be-iterable
+        
+        if not hasattr(self, "_iter"):
+            self._iter = iter(self.url_list)
+        return next(self._iter)
+    """
 
     # 6
     def urllist_generator(self):
         """
         Returns a generator to loop through the urls
         """
-        idx = 0
-        while idx <= len(self.url_list):
-            yield self.url_list[idx]
-            idx += 1
+        for filename in self.url_list:
+            yield filename
 
     # 7
     def avg_vowels(self, text):
@@ -94,9 +85,9 @@ class Download_Books:
 
         texts = {}
 
-        for f in self.filenames:
-            with open(f, "r", encoding="UTF-8") as text:
-                texts[f] = text.read()
+        for filename, url in self.url_list.items():
+            with open(filename, "r", encoding="UTF-8") as text:
+                texts[filename] = text.read()
 
         with ProcessPoolExecutor(workers) as p:
             res = zip(texts.keys(), p.map(self.avg_vowels, texts.values()))
@@ -127,14 +118,3 @@ class Download_Books:
 
 class NotFoundException(Exception):
     pass
-
-
-if __name__ == "__main__":
-    b = Download_Books([])
-    b.multi_download(
-        [
-            "https://www.gutenberg.org/files/84/84-0.txt",
-            "https://www.gutenberg.org/files/43/43-0.txt",
-        ]
-    )
-    print(b.hardest_read())
