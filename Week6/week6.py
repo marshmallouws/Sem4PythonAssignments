@@ -7,10 +7,12 @@ from collections import Counter
 
 class DownloadBooks:
     # 1
-    def __init__(self, url_list):
+    def __init__(self, url_list, path):
         self.url_list = url_list
+        self.path = path
 
     # 2
+
     def download(self, url, filename):
         """
         Download url to filename. Raises NotFoundException when url returns 404
@@ -20,7 +22,7 @@ class DownloadBooks:
                 raise NotFoundException
             else:
                 data = response.readlines()
-                with open(filename, "wb") as f:
+                with open(os.path.join(self.path, filename), "wb") as f:
                     f.writelines(data)
 
     # 3
@@ -86,19 +88,14 @@ class DownloadBooks:
         texts = {}
 
         for filename, url in self.url_list.items():
-            with open(filename, "r", encoding="UTF-8") as text:
+            with open(os.path.join(self.path, filename), "r", encoding="UTF-8") as text:
                 texts[filename] = text.read()
 
         with ProcessPoolExecutor(workers) as p:
             res = zip(texts.keys(), p.map(self.avg_vowels, texts.values()))
 
-        highest = 0
-        f = ""
-        for filename, avg in res:
-            if avg > highest:
-                highest = avg
-                f = filename
-        return f
+        highest = max(res, key=lambda x: x[1])
+        return highest[0]
 
     def multi_download1(self, urls):
         """

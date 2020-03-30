@@ -14,17 +14,5 @@ if __name__ == "__main__":
         "A_Dolls_House.txt": "https://www.gutenberg.org/ebooks/2542.txt.utf-8",
         "The_Adventures_of_Tom_Sawyer.txt": "https://www.gutenberg.org/files/74/74-0.txt",
     }
-    b = week6.DownloadBooks(urls)
-    # b.multi_download()
-    c = iter(b)
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
-    print(next(c))
+    b = week6.DownloadBooks(urls, "files/")
+    b.multi_download()
