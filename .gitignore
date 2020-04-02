@@ -1,4 +1,4 @@
 **/__pycache__
 .vscode
 Week6/files/*
-geckodriver.log
+**/geckodriver.log

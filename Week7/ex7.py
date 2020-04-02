@@ -1,4 +1,5 @@
 # Happy County assignment
+import bs4
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.keys import Keys
@@ -68,10 +69,41 @@ search("breaking benjamin")
 - Procentdel af den merch, der er på tilbud
 - Procentdel af den merch, der ikke er på lager
 """
+# Scroll down to get all search results
+browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
+sleep(1)
+soup = bs4.BeautifulSoup(browser.page_source, "html.parser")
 
-def get_merchandise():
-    pass
+# Getting all products
+products = soup.find_all(
+    "div", {"class": "SearchInterface.module__merchTileContainer col-md-4 col-6"}
+)
 
+contains_bb = 0  # 15/34
+on_sale = 0  # 14/15
+in_stock = 0  # 11/ 15
+all_products = len(products)
 
+import numpy as np
+import matplotlib.pyplot as plt
+
+for p in products:
+    if "Breaking Benjamin" not in p.text:
+        continue
+    contains_bb += 1
+    if "ON SALE" in p.text:
+        on_sale += 1
+    if "In Stock" in p.text:
+        in_stock += 1
+
+xaxis = ["Contains Breaking Benjamin", "On sale", "In stock"]
+pos = np.arange(len(xaxis))
+y = range(0, 40, 1)
+plt.bar(pos, [all_products, contains_bb, contains_bb], color="blue")
+plt.bar(pos, [contains_bb, on_sale, in_stock], color="pink")
+plt.xticks(pos, xaxis)
+
+plt.bar
+plt.show()
 # browser.close()
