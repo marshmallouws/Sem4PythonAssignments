@@ -106,4 +106,4 @@ plt.xticks(pos, xaxis)
 
 plt.bar
 plt.show()
-# browser.close()
+browser.close()
