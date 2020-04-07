@@ -69,7 +69,6 @@ def bar_chart_courses(students):
     }
 
     for s in students:
-        print(s.get_progression())
         s_courses = s.get_course_list()
 
         for course in s_courses:
@@ -111,9 +110,6 @@ def course_chart_gender(students):
             else:
                 males[course.name] += 1
 
-    print(males)
-    print(females)
-
     xpos = np.arange(len(males.values()))
     plt.figure()
     plt.xticks(xpos, males.keys())
@@ -125,10 +121,3 @@ def course_chart_gender(students):
     )
     plt.xticks(horizontalalignment="left", rotation=-45)
     plt.show()
-
-
-course_chart_gender(ex1.read_student_data())
-
-# show_pie_chart(ex1.read_student_data())
-# bar_chart_courses(ex1.read_student_data())
-
