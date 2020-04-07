@@ -17,8 +17,9 @@ import numpy as np
 5. In DataSheet create a method to get_grades_as_list()
 6. In student create a method: get_avg_grade()
 """
-class Student:
 
+
+class Student:
     def __init__(self, name, gender, data_sheet, image_url):
         self.name = name
         self.gender = gender
@@ -26,18 +27,26 @@ class Student:
         self.image_url = image_url
 
     def __repr__(self):
-        return 'Student(%r, %r, %r, %r)' % (self.name, self.gender, self.data_sheet, self.image_url)
+        return "Student(%r, %r, %r, %r)" % (
+            self.name,
+            self.gender,
+            self.data_sheet,
+            self.image_url,
+        )
 
     def get_avg_grade(self):
+        """
+        Returns average grade for student
+        """
         grades = self.data_sheet.get_grades_as_list()
         grade_sum = 0
         no_of_grades = 0
         for grade in grades:
-            if grade is not None:
+            if grade is not None:  # Only sum for the courses that has a grade
                 no_of_grades += 1
                 grade_sum += grade
-        return grade_sum/no_of_grades
-    
+        return grade_sum / no_of_grades
+
     def get_progression(self):
         """
         Make a method on Student class that can show progression of the study in % 
@@ -48,15 +57,14 @@ class Student:
         for course in self.data_sheet.courses:
             if course.grade is not None and course.grade > 0:
                 no_ects += course.ECTS
-        
-        return (no_ects/150)*100
-    
+
+        return (no_ects / 150) * 100
+
     def get_course_list(self):
         return self.data_sheet.courses
 
 
 class DataSheet:
-    
     def __init__(self, courses=None):
         if courses is None:
             self.courses = []
@@ -64,16 +72,19 @@ class DataSheet:
             self.courses = courses
 
     def __repr__(self):
-        return 'DataSheet(%r)' % (self.courses)
-    
+        return "DataSheet(%r)" % (self.courses)
+
     def get_grades_as_list(self):
+        """
+        Returns a list of grades
+        """
         res = []
         for course in self.courses:
             res.append(course.grade)
         return res
 
+
 class Course:
-    
     def __init__(self, name, classroom, teacher, ECTS, grade=None):
         self.name = name
         self.classroom = classroom
@@ -82,12 +93,19 @@ class Course:
         self.grade = grade
 
     def __repr__(self):
-        return 'Course(%r, %r, %r, %r, %r)' % (self.name, self.classroom, self.teacher, self.ECTS, self.grade)
+        return "Course(%r, %r, %r, %r, %r)" % (
+            self.name,
+            self.classroom,
+            self.teacher,
+            self.ECTS,
+            self.grade,
+        )
 
 
 """
 ------------------------------------------- Assignment 1.7 -----------------------------------------
 """
+
 
 def create_random_students():
     """
@@ -95,22 +113,24 @@ def create_random_students():
     gender, courses (from a fixed list of course names), grades, img_url
     """
     students = []
-    female_names = ['Annika', 'Anina', 'Josefine', 'Linda', 'Shafa']
-    male_names = ['Martin', 'Peter', 'Mathias', 'Kasper', 'Jonas']
+    female_names = ["Annika", "Anina", "Josefine", "Linda", "Shafa"]
+    male_names = ["Martin", "Peter", "Mathias", "Kasper", "Jonas"]
     first_names = female_names + male_names
-    sur_names = ['Hansen', 'Sørensen', 'Jensen', 'Jakobsen']
-    genders = ['Male', 'Female']
+    sur_names = ["Hansen", "Sørensen", "Jensen", "Jakobsen"]
+    genders = ["Male", "Female"]
 
-    pictures = ['https://www.pexels.com/photo/woman-sitting-and-smiling-1858175/',
-                'https://www.pexels.com/photo/adult-beard-boy-casual-220453/',
-                'https://www.pexels.com/photo/women-s-white-and-black-button-up-collared-shirt-774909/',
-                'https://www.pexels.com/photo/man-wearing-black-zip-up-jacket-near-beach-smiling-at-the-photo-736716/',
-                'https://www.pexels.com/photo/woman-wearing-black-eyeglasses-1239291/',
-                'https://www.pexels.com/photo/photography-of-person-walking-on-road-1236701/',
-                'https://www.pexels.com/photo/afterglow-backlit-beautiful-crescent-moon-556666/',
-                'https://www.pexels.com/photo/photography-of-a-guy-wearing-green-shirt-1222271/', 
-                'https://www.pexels.com/photo/man-young-happy-smiling-91227/',
-                'https://www.pexels.com/photo/landscape-nature-africa-boy-103123/']
+    pictures = [
+        "https://www.pexels.com/photo/woman-sitting-and-smiling-1858175/",
+        "https://www.pexels.com/photo/adult-beard-boy-casual-220453/",
+        "https://www.pexels.com/photo/women-s-white-and-black-button-up-collared-shirt-774909/",
+        "https://www.pexels.com/photo/man-wearing-black-zip-up-jacket-near-beach-smiling-at-the-photo-736716/",
+        "https://www.pexels.com/photo/woman-wearing-black-eyeglasses-1239291/",
+        "https://www.pexels.com/photo/photography-of-person-walking-on-road-1236701/",
+        "https://www.pexels.com/photo/afterglow-backlit-beautiful-crescent-moon-556666/",
+        "https://www.pexels.com/photo/photography-of-a-guy-wearing-green-shirt-1222271/",
+        "https://www.pexels.com/photo/man-young-happy-smiling-91227/",
+        "https://www.pexels.com/photo/landscape-nature-africa-boy-103123/",
+    ]
 
     courses = create_courses()
 
@@ -130,42 +150,69 @@ def create_random_students():
         tmp_courses = courses.copy()
         c = []
 
-        # Used for randomly giving out grades
+        # Used for randomly giving out grades, some courses
+        # are not finished and therefore has no grade
         grades = [-3, 0, 2, 4, 7, 10, 12, None]
+
+        # Each student get 3 random courses
         for i in range(3):
             course = rnd.choice(tmp_courses)
             tmp_courses.remove(course)
             grade = rnd.choice(grades)
             c.append(Course(*course, grade))
-        
+
         data_sheet = DataSheet(c)
-        students.append(Student(name + ' ' + sur_name, gender, data_sheet, pic))
+        students.append(Student(name + " " + sur_name, gender, data_sheet, pic))
 
     # Write to file
-    write_students_to_file(students)   
+    write_students_to_file(students)
+
 
 def write_students_to_file(students):
     """
     Let the function write the result to a csv file with format stud_name, 
     course_name, teacher, ects, classroom, grade, img_url
     """
-    with open('Students.csv', 'w', newline='', encoding='UTF-8') as stud_file:
+    with open("Students.csv", "w", newline="", encoding="UTF-8") as stud_file:
         output_writer = csv.writer(stud_file)
-        output_writer.writerow(['Student_name', 'Gender', 'Course', 'Teacher', 'ECTS', 'Classroom', 'Grade', 'image'])
+        output_writer.writerow(
+            [
+                "Student_name",
+                "Gender",
+                "Course",
+                "Teacher",
+                "ECTS",
+                "Classroom",
+                "Grade",
+                "image",
+            ]
+        )
         for s in students:
             for c in s.data_sheet.courses:
-                output_writer.writerow([s.name, s.gender, c.name, c.teacher, c.ECTS, c.classroom, c.grade, s.image_url])
+                output_writer.writerow(
+                    [
+                        s.name,
+                        s.gender,
+                        c.name,
+                        c.teacher,
+                        c.ECTS,
+                        c.classroom,
+                        c.grade,
+                        s.image_url,
+                    ]
+                )
 
 
 def create_courses():
-    
+    """
+    Creates random courses
+    """
     courses = []
 
-    course_names = ['Python', 'Security', 'Adv. Programming', 'Unity', 'JavaScript']
+    course_names = ["Python", "Security", "Adv. Programming", "Unity", "JavaScript"]
     ects = [5, 10, 15, 20, 25, 30]
-    class_rooms = ['101', '102', '103', '104', '105']
-    teachers = ['Hans', 'Jens', 'Lars', 'Klausbjerke']
-
+    class_rooms = ["101", "102", "103", "104", "105"]
+    teachers = ["Hans", "Jens", "Lars", "Klausbjerke"]
 
     for name in course_names:
         class_room = rnd.choice(class_rooms)
@@ -177,9 +224,11 @@ def create_courses():
     print(courses)
     return courses
 
+
 """
 ------------------------------------------- Assignment 1.8 -----------------------------------------
 """
+
 
 def read_student_data():
     """
@@ -187,14 +236,14 @@ def read_student_data():
     Print students with name, img_url and avg_grade
     Sort the list
     """
-    with open('Students.csv', 'r', newline='', encoding='UTF-8') as stud_file:
+    with open("Students.csv", "r", newline="", encoding="UTF-8") as stud_file:
         students = []
-        
+
         reader = csv.reader(stud_file)
-        next(reader) # Header
+        next(reader)  # Header
         for row in reader:
             name, gender, course_name, teacher, ects, classroom, grade, image = row
-            if grade != '':
+            if grade != "":
                 grade = int(grade)
             else:
                 grade = None
@@ -207,13 +256,14 @@ def read_student_data():
                 data = DataSheet([course])
                 student = Student(name, gender, data, image)
                 students.append(student)
-    
+
     students.sort(key=lambda x: x.get_avg_grade())
-    
-    #for s in student:
+
+    # for s in student:
     #    student_avg = {s.name, s.get_avg_grade()}
-    
+
     return students
+
 
 def chart_avg_grades():
     """
@@ -224,14 +274,21 @@ def chart_avg_grades():
     for s in students:
         avg_grade_map[s.name] = s.get_avg_grade()
     plt.figure()
-    plt.bar(list(avg_grade_map.keys()), list(avg_grade_map.values()), align='center',edgecolor='black')
-    plt.xticks(rotation=45, horizontalalignment='right')
+    plt.bar(
+        list(avg_grade_map.keys()),
+        list(avg_grade_map.values()),
+        align="center",
+        edgecolor="black",
+    )
+    plt.xticks(rotation=45, horizontalalignment="right")
     plt.show()
 
 
 """
 ------------------------------------------- Assignment 1.10 -----------------------------------------
 """
+
+
 def chart_progression():
     """
     Show a bar chart of distribution of study progression on x-axis and number of 
@@ -239,49 +296,50 @@ def chart_progression():
     """
     students = read_student_data()
     pr = {
-        '0-10': 0,
-        '11-20': 0,
-        '21-30': 0,
-        '31-40': 0,
-        '41-50': 0,
-        '51-60': 0,
-        '61-70': 0,
-        '71-80': 0,
-        '81-90': 0,
-        '91-100': 0
+        "0-10": 0,
+        "11-20": 0,
+        "21-30": 0,
+        "31-40": 0,
+        "41-50": 0,
+        "51-60": 0,
+        "61-70": 0,
+        "71-80": 0,
+        "81-90": 0,
+        "91-100": 0,
     }
 
     for s in students:
         p = s.get_progression()
         if p <= 10:
-            pr['0-10'] += 1
+            pr["0-10"] += 1
         elif p > 10 and p <= 20:
-            pr['11-20'] += 1
+            pr["11-20"] += 1
         elif p > 20 and p <= 30:
-            pr['21-30'] += 1
+            pr["21-30"] += 1
         elif p > 30 and p <= 40:
-            pr['31-40'] += 1
+            pr["31-40"] += 1
         elif p > 40 and p <= 50:
-            pr['41-50'] += 1
+            pr["41-50"] += 1
         elif p > 50 and p <= 60:
-            pr['51-60'] += 1
+            pr["51-60"] += 1
         elif p > 60 and p <= 70:
-            pr['61-70'] += 1
+            pr["61-70"] += 1
         elif p > 70 and p <= 80:
-            pr['71-80'] += 1
+            pr["71-80"] += 1
         elif p > 80 and p <= 90:
-            pr['81-90'] += 1
+            pr["81-90"] += 1
         elif p > 90 and p <= 100:
-            pr['91-100'] += 1
+            pr["91-100"] += 1
 
     print(pr)
     plt.figure()
-    plt.bar(list(pr.keys()), list(pr.values()), align='edge', edgecolor='black')
-    plt.xticks(horizontalalignment='left', rotation=45)
-    plt.yticks(range(1,6,1))
-    plt.xlabel('Completion in %')
-    plt.ylabel('Number of students')
+    plt.bar(list(pr.keys()), list(pr.values()), align="edge", edgecolor="black")
+    plt.xticks(horizontalalignment="left", rotation=45)
+    plt.yticks(range(1, 6, 1))
+    plt.xlabel("Completion in %")
+    plt.ylabel("Number of students")
 
     plt.show()
+
 
 chart_progression()
