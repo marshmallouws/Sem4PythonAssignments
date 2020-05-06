@@ -11,5 +11,5 @@
 * Week 08 - Database and web service
 * Week 09 - Graphs & PageRank Algorithm
 * Week 10 - Feature spaces
-* TBD Week 11 - Neural Networks
+* Week 11 - Neural Networks - NOT FINISHED
 
